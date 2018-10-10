@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Use Case</title>
+	</head>
+	<body>
+		<div id="userStory">
+			<h2>User story: </h2>
+			<p>Chris would like to upload photos from the camping trip he went on last weekend to his Flickr Photostream</p>
+		</div>
+
+		<div id="useCase">
+			<h2>Use case: </h2>
+			<p><strong>Title: </strong>Uploading Chris's photos to his Photostream</p>
+			<p><strong>Scenario: </strong>Chris is a computer-savvy amateur photographer. He took some photos on a weekend camping trip that he'd like to share on Flickr.</p>
+			<p><strong>Usage preconditions: </strong></p>
+				<ul>
+					<li>User must have a Flickr account</li>
+					<li>User must be logged in to Flickr account</li>
+					<li>User must have photos to upload</li>
+				</ul>
+			<p><strong>Usage postconditions: </strong></p>
+				<ul>
+					<li>Chris's photos are uploaded to his Photostream</li>
+					<li>Chris's photos are tagged and can be discovered by other photographers</li>
+					<li>Chris can receive feedback from fellow photographers</li>
+				</ul>
+			<p><strong>Interaction flow:</strong></p>
+			<ul>
+				<li>Chris opens up his browser and enters "flickr.com" in his navbar</li>
+				<li>Server processes the request, returns Flickr homepage</li>
+				<li>Chris clicks on "log in" button</li>
+				<li>Server redirects Chris to Yahoo login page</li>
+				<li>Chris enters his email into the Sign In box</li>
+				<li>Server prompts Chris to enter a password</li>
+				<li>Chris enters password</li>
+				<li>Server redirects Chris back to Flickr homepage</li>
+				<li>Chris clicks on upload button in header of page</li>
+				<li>Server directs Chris to upload page</li>
+				<li>Chris selects the photos he would like to upload from his files</li>
+				<li>Chris changes the titles of and adds relevant tags to each photo</li>
+				<li>Chris now clicks on the "Upload x Photos" button</li>
+				<li>Server redirects Chris to his Photostream page where he can now view his newly uploaded photos</li>
+			</ul>
+			<p><strong>Frequency of use: </strong>Once every couple of weeks</p>
+		</div>
+	</body>
+</html>
