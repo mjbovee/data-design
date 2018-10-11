@@ -14,7 +14,7 @@
 					<li>profileRealName</li>
 					<li>profileDisplayName</li>
 					<li>profileEmail</li>
-					<li>profilePassword</li>
+					<li>profileHash</li>
 					<li>profileWebAddress</li>
 				</ul>
 			<h3>PHOTO</h3>
@@ -25,9 +25,11 @@
 					<li>photoFormat</li>
 					<li>photoSize</li>
 					<li>photoCopyright</li>
+					<li>photoPath</li>
 				</ul>
 			<h3>COMMENT</h3>
 				<ul>
+					<li>commentId(primary key)</li>
 					<li>commentProfileId(foreign key)</li>
 					<li>commentPhotoId(foreign key)</li>
 					<li>commentDate</li>
@@ -38,12 +40,20 @@
 					<li>tagPhotoId(foreign key)</li>
 					<li>tagContent</li>
 				</ul>
+			<h3>LIKE</h3>
+			<ul>
+				<li>likeId(primary key)</li>
+				<li>likePhotoId(foreign key)</li>
+				<li>likeProfileId(foreign key)</li>
+			</ul>
 		</div>
 		<div id="relations">
 			<h3>Relations: </h3>
 			<ul>
 				<li>One photo can have many comments (1 to n)</li>
 				<li>Many photos can be liked by many profiles (m to n)</li>
+				<li>Many photos can have many tags (m to n)</li>
+				<li></li>
 			</ul>
 		</div>
 	</body>
