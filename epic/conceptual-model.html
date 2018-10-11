@@ -36,17 +36,19 @@
 				</ul>
 			<h3>LIKE</h3>
 			<ul>
-				<li>likeId(primary key)</li>
 				<li>likePhotoId(foreign key)</li>
 				<li>likeProfileId(foreign key)</li>
+				<li>likeDate</li>
 			</ul>
 		</div>
 		<div id="relations">
 			<h3>Relations: </h3>
 			<ul>
-				<li>One user can upload many photos(1 to n)</li>
-				<li>One photo can have many comments (1 to n)</li>
-				<li>Many photos can be liked by many profiles (m to n)</li>
+				<li>One user can upload many photos (1 to n)</li>
+				<li>Many users can have many likes (m to n)</li>
+				<li>Many users can have many comments (m to n)</li>
+				<li>Many photos can have many comments (m to n)</li>
+				<li>Many photos can have many likes (m to n)</li>
 			</ul>
 		</div>
 	</body>
