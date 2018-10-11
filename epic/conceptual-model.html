@@ -13,15 +13,20 @@
 		<h1>Conceptual Model</h1>
 		<div id="entitiesAttributes">
 			<h2>Entities and Attributes</h2>
-			<h3>USER PROFILE</h3>
-				<ul>
-					<li>profileId(primary key)</li>
-					<li>profileRealName</li>
-					<li>profileDisplayName</li>
-					<li>profileEmail</li>
-					<li>profileHash</li>
-					<li>profileWebAddress</li>
-				</ul>
+			<h3>COMMENT</h3>
+			<ul>
+				<li>commentId(primary key)</li>
+				<li>commentProfileId(foreign key)</li>
+				<li>commentPhotoId(foreign key)</li>
+				<li>commentDate</li>
+			</ul>
+			<h3>LIKE</h3>
+			<ul>
+				<li>likePhotoId(foreign key)</li>
+				<li>likeProfileId(foreign key)</li>
+				<li>likeDate</li>
+			</ul>
+		</div>
 			<h3>PHOTO</h3>
 				<ul>
 					<li>photoId(primary key)</li>
@@ -32,20 +37,15 @@
 					<li>photoCopyright</li>
 					<li>photoPath</li>
 				</ul>
-			<h3>COMMENT</h3>
-				<ul>
-					<li>commentId(primary key)</li>
-					<li>commentProfileId(foreign key)</li>
-					<li>commentPhotoId(foreign key)</li>
-					<li>commentDate</li>
-				</ul>
-			<h3>LIKE</h3>
-			<ul>
-				<li>likePhotoId(foreign key)</li>
-				<li>likeProfileId(foreign key)</li>
-				<li>likeDate</li>
-			</ul>
-		</div>
+		<h3>USER PROFILE</h3>
+		<ul>
+			<li>profileId(primary key)</li>
+			<li>profileRealName</li>
+			<li>profileDisplayName</li>
+			<li>profileEmail</li>
+			<li>profileHash</li>
+			<li>profileWebAddress</li>
+		</ul>
 		<div id="relations">
 			<h3>Relations: </h3>
 			<ul>
