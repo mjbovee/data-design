@@ -9,6 +9,39 @@ DROP TABLE IF EXISTS profile;
 
 -- create comment table
 
+CREATE TABLE profile (
+	-- primary key
+	profileId BINARY(16) NOT NULL,
+	-- attributes
+	profileDisplayName VARCHAR(32) NOT NULL,
+	profileEmail VARCHAR(128) NOT NULL,
+	profileHash CHAR(9) NOT NULL,
+	profileRealName VARCHAR(32) NOT NULL,
+	profileWebAddress VARCHAR(128),
+	-- prevent duplicate data
+	UNIQUE(profileDisplayName),
+	UNIQUE(profileEmail),
+	-- primary key
+	PRIMARY KEY(profileId)
+);
+
+CREATE TABLE photo (
+	-- primary key
+	photoId BINARY(16) NOT NULL,
+	-- foreign keys
+	photoProfileId BINARY(16) NOT NULL,
+	-- attributes
+	photoCopyright VARCHAR(128),
+	photoFormat VARCHAR(8),
+	photoPath VARCHAR(128) NOT NULL,
+	photoSize VARCHAR(16) NOT NULL,
+	photoTitle VARCHAR(64) NOT NULL,
+	-- create foreign key relations
+	FOREIGN KEY(photoProfileId) REFERENCES profile(profileId),
+	-- create primary key
+	PRIMARY KEY(photoId)
+);
+
 CREATE TABLE comment (
 	-- primary key
 	commentId BINARY(16) NOT NULL,
@@ -45,35 +78,3 @@ CREATE TABLE `like` (
 	PRIMARY KEY(likePhotoId, likeProfileId)
 );
 
-CREATE TABLE photo (
-	-- primary key
-	photoId BINARY(16) NOT NULL,
-	-- foreign keys
-	photoProfileId BINARY(16) NOT NULL,
-	-- attributes
-	photoCopyright VARCHAR(128),
-	photoFormat VARCHAR(8),
-	photoPath VARCHAR(128) NOT NULL,
-	photoSize VARCHAR(16) NOT NULL,
-	photoTitle VARCHAR(64) NOT NULL,
-	-- create foreign key relations
-	FOREIGN KEY(photoProfileId) REFERENCES profile(photoProfileId),
-	-- create primary key
-	PRIMARY KEY(photoId)
-);
-
-CREATE TABLE profile (
-	--primary key
-	profileId BINARY(16) NOT NULL,
-	-- attributes
-	profileDisplayName VARCHAR(32) NOT NULL,
-	profileEmail VARCHAR(128) NOT NULL,
-	profileHash CHAR(9) NOT NULL,
-	profileRealName VARCHAR(32) NOT NULL,
-	profileWebAddress VARCHAR(128),
-	-- prevent duplicate data
-	UNIQUE(profileDisplayName),
-	UNIQUE(profileEmail),
-	-- primary key
-	PRIMARY KEY(profileId)
-);
