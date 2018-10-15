@@ -78,3 +78,10 @@ CREATE TABLE `like` (
 	PRIMARY KEY(likePhotoId, likeProfileId)
 );
 
+CREATE TABLE photoComment (
+	photoCommentPhotoId BINARY(16) NOT NULL,
+	photoCommentCommentId BINARY(16) NOT NULL,
+	FOREIGN KEY(photoCommentPhotoId) REFERENCES photo(photoId),
+	FOREIGN KEY(photoCommentCommentId) REFERENCES comment(commentId),
+	PRIMARY KEY(photoCommentPhotoId, photoCommentCommentId)
+);
