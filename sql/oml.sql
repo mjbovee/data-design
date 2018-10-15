@@ -10,6 +10,8 @@ INSERT INTO `like`(likePhotoId, likeProfileId, likeDate) VALUES(unhex("a000656ef
 
 INSERT INTO `like`(likePhotoId, likeProfileId, likeDate) VALUES(unhex("a000656ef8e24517b5d9a7af552805ef"), unhex("6e677e4bd46a4c3dbc9a5a51b6178bdd"), "10-10-10");
 
+INSERT INTO photoComment(photoCommentPhotoId, photoCommentCommentId) VALUES(unhex("a000656ef8e24517b5d9a7af552805ef"), unhex("86988389e4a142c18b282e4045a38e81"));
+
 UPDATE profile SET profileDisplayName = "michaeljbovee91", profileRealName = "Michael J Bovee" WHERE profileId = unhex("95ad0914b2a343608d88414bf9d08091");
 
 DELETE FROM comment WHERE commentId = unhex("86988389e4a142c18b282e4045a38e81");
