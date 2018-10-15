@@ -24,7 +24,7 @@ SELECT profile.profileId, profile.profileDisplayName, photo.photoId, photo.photo
 
 -- complicated
 
-SELECT photo.photoId, photo.photoProfileId, photo.photoSize, photo.photoTitle FROM comment INNER JOIN photoComment on comment.commentId = photoComment.photoCommentCommentId INNER JOIN photo ON photoComment.photoCommentPhotoId = photo.photoId WHERE comment.commentId = unhex("86988389e4a142c18b282e4045a38e81");
+SELECT photo.photoId, photo.photoProfileId, photo.photoSize, photo.photoTitle, comment.commentProfileId FROM comment INNER JOIN photoComment on comment.commentId = photoComment.photoCommentCommentId INNER JOIN photo ON photoComment.photoCommentPhotoId = photo.photoId WHERE comment.commentId = unhex("86988389e4a142c18b282e4045a38e81");
 
 SELECT COUNT(*) FROM `like` WHERE likePhotoId = unhex("a000656ef8e24517b5d9a7af552805ef");
 
