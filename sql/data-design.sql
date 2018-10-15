@@ -15,7 +15,7 @@ CREATE TABLE profile (
 	-- attributes
 	profileDisplayName VARCHAR(32) NOT NULL,
 	profileEmail VARCHAR(128) NOT NULL,
-	profileHash CHAR(9) NOT NULL,
+	profileHash CHAR(97) NOT NULL,
 	profileRealName VARCHAR(32) NOT NULL,
 	profileWebAddress VARCHAR(128),
 	-- prevent duplicate data
