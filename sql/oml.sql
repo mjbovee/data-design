@@ -12,3 +12,4 @@ SELECT photoId, photoProfileId, photoPath, photoSize, photoTitle FROM photo WHER
 
 SELECT profile.profileId, profile.profileDisplayName, photo.photoId, photo.photoTitle FROM profile INNER JOIN photo ON photo.photoProfileId = profile.profileId WHERE photoId = unhex("a000656ef8e24517b5d9a7af552805ef");
 
+SELECT tweet.tweetId, `like`.likeTweetId FROM tweet INNER JOIN `like` ON `like`.likeTweetId = tweet.tweetId WHERE tweetId = unhex(uuid)
