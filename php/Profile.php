@@ -72,7 +72,21 @@ class Profile {
 	 * mutator method for profile display name
 	 *
 	 * @param string $profileDisplayName
-	 * @throws \InvalidArgumentException if display name is not a string
-	 *
+	 * @throws \InvalidArgumentException if display name is not a string or is insecure
+	 * @throws \RangeException if display name is > 32 characters
+	 * @throws \TypeError if display name is not a string
 	 */
+	public function setProfileDisplayName(string $newProfileDisplayName) : void {
+		$newProfileDisplayName = trim($newProfileDisplayName);
+		$newProfileDisplayName = filter_var($newProfileDisplayName,FILTER_SANITIZE_STRING);
+		// verify that the new display name is a string
+		if($newProfileDisplayName === false) {
+			throw new \InvalidArgumentException("new profile name is not a string or is insecure")
+		}
+		// verify that the new display name is not too long
+		if(strlen($newProfileDisplayName) > 32) {
+			throw new \RangeException("Your new profile name is too long")
+		}
+		$this->profileDisplayName = $newProfileDisplayName;
+	}
 }
