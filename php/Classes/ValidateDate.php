@@ -100,7 +100,7 @@ trait ValidateDate {
 			// verify date is a valid calendar date
 			$hour = intval($matches[1]);
 			$minute = intval($matches[2]);
-			$second = intval($matcches[3]);
+			$second = intval($matches[3]);
 			// verify time is valid wall clock time
 			if ($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0 || $second >= 60) {
 				throw(new \RangeException("time is not a valid wall clock time"));

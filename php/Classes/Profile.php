@@ -180,7 +180,6 @@ class Profile {
 	 * @param string $newProfileHash  new string value for profile hash
 	 * @throws \InvalidArgumentException if hash is not secure
 	 * @throws \RangeException if length of hash is not equal to 97 characters
-	 * @throws \TypeError if hash is not a string
 	 */
 	public function setProfileHash(string $newProfileHash): void {
 		// check hash to make sure it is formatted correctly
@@ -214,7 +213,6 @@ class Profile {
 	 * @param string $newProfileRealName new value of profile real name
 	 * @throws \InvalidArgumentException if display name is not a string or if it's insecure
 	 * @throws \RangeException if length of display name is greater than 32 characters
-	 * @throws \TypeError if display name is not a string
 	 */
 	public function setProfileRealName(string $newProfileRealName) : void {
 		$newProfileRealName = trim($newProfileRealName);
