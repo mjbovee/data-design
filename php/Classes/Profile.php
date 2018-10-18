@@ -45,6 +45,37 @@ class Profile {
 	 */
 	private $profileWebAddress;
 	/**
+	 * constructor for this profile
+	 *
+	 * @param string|Uuid $newProfileId if this profile is null or if a new profile
+	 * @param string $newProfileDisplayName display name of profile
+	 * @param string $newProfileEmail email address associated with this account
+	 * @param string $newProfileHash hash for password associated with this account
+	 * @param string $newProfileRealName real name of profile user
+	 * @param string $newProfileWebAddress web address associated with accout
+	 * @throws \InvalidArgumentException if data types aren't valid
+	 * @throws \RangeException if data values are incorrect lengths
+	 * @throws \TypeError if data values are not the right type
+	 * @throws \Exception for any other mysqli_sql_exception
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+	 */
+	public function __construct($newProfileId, $newProfileDisplayName, $newProfileEmail, $newProfileHash, $newProfileRealName, $newProfileWebAddress) {
+		try {
+			$this->setProfileId($newProfileId);
+			$this->setProfileDisplayName($newProfileDisplayName);
+			$this->setProfileEmail($newProfileEmail);
+			$this->setProfileHash($newProfileHash);
+			$this->setProfileRealName($newProfileRealName);
+			$this->setProfileWebAddress($newProfileWebAddress);
+		}
+		// determine if/what exception(s) was/were thrown
+		catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * accessor method for profile id
 	 *
 	 * @return Uuid value of profile id - this will be null if new profile
