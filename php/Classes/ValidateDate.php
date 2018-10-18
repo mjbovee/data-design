@@ -49,4 +49,36 @@ trait ValidateDate {
 		$newDate = \DateTime::createFromFormat("Y-m-d H:i:s", $newDate . " 00:00:00");
 		return($newDate);
 	}
+	/**
+	 * custom filter for mySQL style dates
+	 *
+	 * converts string to a DateTime object - designed to be used within a mutator method
+	 *
+	 * @param mixed $newDateTime date to validate
+	 * @return \DateTime DateTime object containing the validated date
+	 * @see http://php.net/manual/en/class.datetime.php PHP's DateTime class
+	 * @throws \InvalidArgumentException if the date is in an invalid format
+	 * @throws \RangeException if the date is not compliant with Gregorian calendar
+	 * @throws \TypeError when type hints fail
+	 * @throws \Exception if there are other errors
+	 */
+	private static function validateDateTime($newDateTime) : \DateTime {
+		// check to see if date is valid DateTime object - if so, return object
+		if(is_object($newDateTime) === true && get_class($newDateTime) === "DateTime") {
+			return($newDateTime);
+		}
+		// try and catch block
+		try {
+			list($date, $time) = explode(" ", $newDateTime);
+			$date = self::validateDate($date);
+			$time = self::validateTime($time);
+			list($hour, $minute, $second) = explode(":", $time);
+			list($second, $microseconds) = explode(".", $second);
+			$date->setTIme($hour, $minute, $second, $microseconds);
+			return($date);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
 }
