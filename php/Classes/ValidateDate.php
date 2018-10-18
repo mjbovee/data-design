@@ -80,5 +80,36 @@ trait ValidateDate {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+		/**
+		 * custom filter for mySQL style times
+		 *
+		 * validates a time string - designed to be used within a mutator method
+		 *
+		 * @param string $newTime time to validate
+		 * @return string validated time as a string H:i:s[.u]
+		 * @see http://php.net/manual/en/class.datetime.php PHP's DateTime class
+		 * @throws \InvalidArgumentException if date is invalid format
+		 * @throws \RangeException if date is not compliant with Gregorian calendar
+		 */
+		private static function validateTime(string $newTime) : string {
+			// treat date as a mySQL date string: H:i:s[.u]
+			$newTime = trim($newTime);
+			if((preg_match("/^(\d{2}):(\d{2}):(\d{2})(?(?=\.)\.(\d{1,6}))$/", $newTime, $matches)) !== 1) {
+				throw(new \InvalidArgumentException("time is not a valid time"));
+			}
+			// verify date is a valid calendar date
+			$hour = intval($matches[1]);
+			$minute = intval($matches[2]);
+			$second = intval($matcches[3]);
+			// verify time is valid wall clock time
+			if ($hour < 0 || $hour >= 24 || $minute < 0 || $minute >= 60 || $second < 0 || $second >= 60) {
+				throw(new \RangeException("time is not a valid wall clock time"));
+			}
+			// create placeholder for microseconds if they don't exist
+			$microseconds = $matches[4] ?? "0";
+			$newTime = "$hour:$minute:$second.$microseconds";
+			// if time makes it here, it's clean
+			return($newTime);
+		}
 	}
 }
