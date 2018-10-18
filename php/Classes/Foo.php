@@ -55,10 +55,21 @@ class Foo {
 	/**
 	 * mutator method for profile id
 	 *
-	 * @param
+	 * @param Uuid|string $newProfileId value of new profile id
+	 * @throws \RangeException if $newProfileId is not positive
+	 * @throws \TypeError if the profile Id is not Uuid
 	 */
-	public function setProfileId() {
-
+	public function setProfileId($newProfileId): void {
+		// see if the new profile uuid is valid
+		try {
+			$uuid = self::validateUuid($newProfileId);
+		// throw error if Uuid is not valid
+		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		// store new profile id
+		$this->profileId = $uuid;
 	}
 	/**
 	 *accessor method for profile display name
@@ -71,7 +82,7 @@ class Foo {
 	/**
 	 * mutator method for profile display name
 	 *
-	 * @param string $profileDisplayName value of new profile display name
+	 * @param string $newProfileDisplayName value of new profile display name
 	 * @throws \InvalidArgumentException if display name is not a string or if it's insecure
 	 * @throws \RangeException if length of display name is greater than 32 characters
 	 * @throws \TypeError if display name is not a string
