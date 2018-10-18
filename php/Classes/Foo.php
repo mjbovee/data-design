@@ -12,7 +12,7 @@
  * @version 1.0.0
  */
 
-class Profile {
+class Foo {
 	use ValidateUuid;
 	/**
 	 * id for this profile
@@ -71,8 +71,8 @@ class Profile {
 	/**
 	 * mutator method for profile display name
 	 *
-	 * @param string $profileDisplayName
-	 * @throws \InvalidArgumentException if display name is not a string or is insecure
+	 * @param string value of profileDisplayName
+	 * @throws \InvalidArgumentException if display name is not a string or if it's insecure
 	 * @throws \RangeException if display name is > 32 characters
 	 * @throws \TypeError if display name is not a string
 	 */
@@ -81,12 +81,44 @@ class Profile {
 		$newProfileDisplayName = filter_var($newProfileDisplayName,FILTER_SANITIZE_STRING);
 		// verify that the new display name is a string
 		if($newProfileDisplayName === false) {
-			throw new \InvalidArgumentException("new profile name is not a string or is insecure")
+			throw new \InvalidArgumentException("Your new profile name is not a string or is insecure");
 		}
 		// verify that the new display name is not too long
 		if(strlen($newProfileDisplayName) > 32) {
-			throw new \RangeException("Your new profile name is too long")
+			throw new \RangeException("Your new profile name is too long");
 		}
 		$this->profileDisplayName = $newProfileDisplayName;
+	}
+	/**
+	 *accessor method for profile email
+	 *
+	 *@return string value of profile email
+	 */
+	public function getProfileEmail() : ?string {
+		return($this->profileEmail);
+	}
+	/**
+	 * mutator method for profile email
+	 *
+	 * @para string value of profile email
+	 * @throws \InvalidArgumentException if email is not a valid email address or if it's insecure
+	 * @throws \RangeException if email is >
+	 *
+	 */
+	/**
+	 * @param string $profileEmail
+	 */
+	public function setProfileEmail(string $newProfileEmail): void {
+		$newProfileEmail = trim($newProfileEmail);
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_VALIDATE_EMAIL);
+		// verify email is a valid address
+		if($newProfileEmail === false) {
+			throw new \InvalidArgumentException("That is not a valid email address");
+		}
+		// verify email is not too long
+		if(strlen($newProfileEmail > 128)) {
+			throw new \RangeException("That email address is too long");
+		}
+		$this->profileEmail = $newProfileEmail;
 	}
 }
