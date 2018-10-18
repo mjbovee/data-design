@@ -81,11 +81,11 @@ class Foo {
 		$newProfileDisplayName = filter_var($newProfileDisplayName,FILTER_SANITIZE_STRING);
 		// verify that the new display name is a string
 		if($newProfileDisplayName === false) {
-			throw new \InvalidArgumentException("Your new profile name is not a string or is insecure");
+			throw new \InvalidArgumentException("Your new profile display name is not a string or is insecure");
 		}
 		// verify that the new display name is not too long
 		if(strlen($newProfileDisplayName) > 32) {
-			throw new \RangeException("Your new profile name is too long");
+			throw new \RangeException("Your new profile display name is too long");
 		}
 		$this->profileDisplayName = $newProfileDisplayName;
 	}
@@ -121,4 +121,33 @@ class Foo {
 		}
 		$this->profileEmail = $newProfileEmail;
 	}
+
+	/**
+	 *accessor method for profile real name
+	 *
+	 * @return string value of profile real name
+	 */
+	public function getProfileRealName() : ?string {
+		return ($this->profileRealName);
+	}
+	/**
+	 * mutator method for profile real name
+	 *
+	 * @param string value of profile real name
+	 * @throws \InvalidArgumentException if display name is not a string or if it's insecure
+	 * @throws \RangeException if display name is > 32 characters
+	 * @throws \TypeError if display name is not a string
+	 */
+	public function setProfileRealName(string $newProfileRalName) : void {
+		$newProfileRealName = trim($newProfileRealName);
+		$newProfileRealName = filter_var($newProfileRealName,FILTER_SANITIZE_STRING);
+		// verify that the new real name is a string
+		if($newProfileRealName === false) {
+			throw new \InvalidArgumentException("Your new profile real name is not a string or is insecure");
+		}
+		// verify that the new real name is not too long
+		if(strlen($newProfileRealName) > 32) {
+			throw new \RangeException("Your new profile real name is too long");
+		}
+		$this->profileRealName = $newProfileRealName;
 }
