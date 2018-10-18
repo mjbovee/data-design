@@ -12,7 +12,7 @@
  * @version 1.0.0
  */
 
-class Foo {
+class Profile {
 	use ValidateUuid;
 	/**
 	 * id for this profile; this is the primary key
