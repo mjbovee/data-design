@@ -16,5 +16,13 @@
  * @documentation https://bootcamp-coders.cnm.edu/class-materials/object-oriented/object-oriented-php.php
  */
 trait ValidateUuid {
+/**
+ * validates Uuid string values and objects
+ *
+ * @param string|Uuid value $newUuid uuid to validate
+ * @return validated uuid string
+ * @throws \InvalidArgumentException if $newUuid is not valid
+ * @throws \RangeException if $newUuid is not valid uuid v4 length
+ */
 
 }
