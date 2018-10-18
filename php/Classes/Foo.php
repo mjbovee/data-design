@@ -179,4 +179,33 @@ class Foo {
 		// store the new real profile name
 		$this->profileRealName = $newProfileRealName;
 	}
+	/**
+	 * accessor method for profile web address
+	 *
+	 * @return string value of profile web address
+	 */
+	public function getProfileWebAddress() : ?string {
+		return ($this->profileWebAddress);
+	}
+	/**
+	 * mutator method for profile web address
+	 *
+	 * @param string $newProfileWebAddress new value of profile web address
+	 * @throws \InvalidArgumentException if web address is not a string or if it's insecure
+	 * @throws \RangeException if length of web address is greater than 128 characters
+	 */
+	public function setProfileWebAddress(string $newProfileWebAddress) : void {
+		$newProfileWebAddress = trim($newProfileWebAddress);
+		$newProfileWebAddress = filter_var($newProfileWebAddress, FILTER_VALIDATE_URL);
+		// verify new web address is valid url
+		if($newProfileWebAddress === false) {
+			throw(new \InvalidArgumentException("That is not a valid web address"));
+		}
+		// verify web address isn't too long
+		if (strlen($newProfileWebAddress) > 128) {
+			throw(new \RangeException("That url is too long"));
+		}
+		// store new web address
+		$this->profileWebAddress = $newProfileWebAddress;
+	}
 }
