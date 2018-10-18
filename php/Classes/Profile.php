@@ -6,6 +6,8 @@
  * Time: 1:22 PM
  */
 
+namespace Foo\Bar\DataDesign;
+
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "../vendor/autoload.php");
 
