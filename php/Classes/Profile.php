@@ -7,7 +7,7 @@
  */
 
 require_once("autoload.php");
-require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+require_once(dirname(__DIR__, 2) . "../vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
 /**This is an abbreviated example of what is potentially stored about a user on a site like Flickr. This is a top-level entity and holds keys about other entities, such as photographs and comments.
