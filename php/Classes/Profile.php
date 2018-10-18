@@ -185,7 +185,7 @@ class Profile {
 		// verify the hash is an argon hash
 		$profileHashInfo = password_get_info($newProfileHash);
 		if($profileHashInfo["algoName"] !== "argon2i") {
-			throw(new \InvalidArgumentException("profile has is not a valid hash"))
+			throw(new \InvalidArgumentException("profile has is not a valid hash"));
 		}
 		// check string length
 		if(strlen($newProfileHash) !== 97) {
