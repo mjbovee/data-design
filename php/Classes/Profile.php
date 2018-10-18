@@ -74,7 +74,6 @@ class Profile {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
-
 	/**
 	 * accessor method for profile id
 	 *
@@ -88,7 +87,7 @@ class Profile {
 	 *
 	 * @param Uuid|string $newProfileId value of new profile id
 	 * @throws \RangeException if $newProfileId is not positive
-	 * @throws \TypeError if the profile Id is not Uuid
+	 * @throws \TypeError if the profile Id is not Uuid|string
 	 */
 	public function setProfileId($newProfileId): void {
 		// see if the new profile uuid is valid
@@ -181,9 +180,13 @@ class Profile {
 		// check hash to make sure it is formatted correctly
 		$newProfileHash = trim($newProfileHash);
 		if($newProfileHash === false) {
-			throw(new \InvalidArgumentException("Profile hash is not secure"));
+			throw(new \InvalidArgumentException("Profile hash is empty or insecure"));
 		}
-		// Argon hash???
+		// verify the hash is an argon hash
+		$profileHashInfo = password_get_info($newProfileHash);
+		if($profileHashInfo["algoName"] !== "argon2i") {
+			throw(new \InvalidArgumentException("profile has is not a valid hash"))
+		}
 		// check string length
 		if(strlen($newProfileHash) !== 97) {
 			throw(new \RangeException("Profile hash must be 97 characters"));
