@@ -27,4 +27,26 @@ trait ValidateDate {
 	 * @throws \RangeException if date is not compliant with Gregorian calendar
 	 * @throws \TypeError when type hints fail
 	 */
+	private static function validateDate($newDate) : \DateTime {
+		// check to see if date is already a DateTime object - if so, return object
+		if(is_object($newDate) === true && get_class($newDate) === "DateTime") {
+			return($newDate);
+		}
+		// treat date object as a mySQL date string: Y-M-D
+		$newDate = trim($newDate);
+		// perform regex match - pattern states 'string that starts with a digit value consisting of four places, followed by a digit value consisting of two places, followed by a digit value consisting of two places
+		if((preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $newDate, $matches)) !== 1) {
+			throw(new \InvalidArgumentException("date is not a valid date"));
+		}
+		// verify the date is a real calendar date
+		$year = intval($matches[1]);
+		$month = intval($matches[2]);
+		$day = intval($matches[3]);
+		if(checkdate($year, $month, $day) === false) {
+			throw(new \RangeException("date is not a valid Gregorian date"));
+		}
+		// at this point in method, the date is clean
+		$newDate = \DateTime::createFromFormat("Y-m-d H:i:s", $newDate . " 00:00:00");
+		return($newDate);
+	}
 }
