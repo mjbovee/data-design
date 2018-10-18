@@ -2,7 +2,7 @@
 /**
  * PSR-4 Compliant Autoloader
  *
- * explain what this does
+ * Enables classes to be automatically loaded by resolving prefix and class name
  *
  * @param string $class fully qualified class name to load
  * @see http://www.php-fig.org/psr/psr-4/examples/ PSR-4 Example Autoloader
