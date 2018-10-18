@@ -23,9 +23,9 @@ trait ValidateUuid {
  * validates Uuid string values and objects
  *
  * @param string|Uuid value $newUuid uuid to validate
- * @return validated Uuid string
+ * @return Uuid object with valid uuid
  * @throws \InvalidArgumentException if $newUuid is not valid
- * @throws \RangeException if $newUuid is not valid uuid v4 length
+ * @throws \RangeException if $newUuid is not valid uuid version 4
  */
 	private static function validateUuid($newUuid) : Uuid {
 		// verify string uuid
