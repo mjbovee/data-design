@@ -92,11 +92,11 @@ class Foo {
 		$newProfileDisplayName = filter_var($newProfileDisplayName,FILTER_SANITIZE_STRING);
 		// verify that the new display name is a string
 		if($newProfileDisplayName === false) {
-			throw(new \InvalidArgumentException("Your new profile display name is not a string or is insecure"));
+			throw(new \InvalidArgumentException("new profile display name is not a string or is insecure"));
 		}
 		// verify that the new display name is not too long
 		if(strlen($newProfileDisplayName) > 32) {
-			throw(new \RangeException("Your new profile display name is too long"));
+			throw(new \RangeException("new profile display name is too long"));
 		}
 		// store the new profile display name
 		$this->profileDisplayName = $newProfileDisplayName;
@@ -181,11 +181,11 @@ class Foo {
 		$newProfileRealName = filter_var($newProfileRealName, FILTER_SANITIZE_STRING);
 		// verify that the new real name is a string
 		if($newProfileRealName === false) {
-			throw(new \InvalidArgumentException("Your new profile real name is not a string or is insecure"));
+			throw(new \InvalidArgumentException("new profile real name is not a string or is insecure"));
 		}
 		// verify that the new real name is not too long
 		if(strlen($newProfileRealName) > 32) {
-			throw(new \RangeException("Your new profile real name is too long"));
+			throw(new \RangeException("new profile real name is too long"));
 		}
 		// store the new real profile name
 		$this->profileRealName = $newProfileRealName;
