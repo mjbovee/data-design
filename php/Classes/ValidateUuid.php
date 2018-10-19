@@ -6,7 +6,7 @@
  * Time: 10:35 AM
  */
 namespace Michaelbovee\DataDesign;
-require_once(dirname(__DIR__, 2) . "../vendor/autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 /**
  * Trait to validate Uuid
@@ -35,13 +35,13 @@ trait ValidateUuid {
 				$newUuid = bin2hex($newUuid);
 			}
 			// validate uuid if it's a human readable string
-			if(strlen($newUuid) === 32) {
+			if(strlen($newUuid) === 36) {
 				if(Uuid::isValid($newUuid) === false) {
 					throw(new \InvalidArgumentException("invalid uuid"));
 				}
 				$uuid = Uuid::fromString($newUuid);
 			} else {
-				throw(new \InvalidArgumentException("invaid uuid"));
+				throw(new \InvalidArgumentException("invalid uuid"));
 			}
 		} else if(gettype($newUuid) === "object" && get_class($newUuid) === "Ramsey\\Uuid\\Uuid") {
 			// if already valid uuid, just move on

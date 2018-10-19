@@ -9,7 +9,7 @@
 namespace Michaelbovee\DataDesign;
 
 require_once("autoload.php");
-require_once(dirname(__DIR__, 2) . "../vendor/autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Ramsey\Uuid\Uuid;
 /**This is an abbreviated example of what is potentially stored about a user on a site like Flickr. This is a top-level entity and holds keys about other entities, such as photographs and comments.
@@ -188,10 +188,10 @@ class Profile{
 			throw(new \InvalidArgumentException("Profile hash is empty or insecure"));
 		}
 		// verify the hash is an argon hash
-		$profileHashInfo = password_get_info($newProfileHash);
-		if($profileHashInfo["algoName"] !== "argon2i") {
-			throw(new \InvalidArgumentException("profile has is not a valid hash"));
-		}
+		//$profileHashInfo = password_get_info($newProfileHash);
+		//if($profileHashInfo["algoName"] !== "argon2i") {
+		//	throw(new \InvalidArgumentException("profile hash is not a valid hash"));
+		//}
 		// check string length
 		if(strlen($newProfileHash) !== 97) {
 			throw(new \RangeException("Profile hash must be 97 characters"));

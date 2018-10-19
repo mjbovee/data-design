@@ -6,7 +6,8 @@
  * Time: 3:53 PM
  */
 namespace Michaelbovee\DataDesign;
+require_once ("../Classes/autoload.php");
 
-$instance = new Profile("bac2128c571e4ede963d031d2198eca7", "MikeB", "mikeb@email.com", "ptXXJHyRgGM4DAMaN6N8cwXN2VaBIUzOZ4YNZakjBu1hk6jne5g9HYh6CxIypfqU97a6S8FLXpX5r8NGFUTRB22hoN4JmaPl4", "Mike Bove", "mikebovee.com");
+$instance = new Profile("82f90cb6-9bf2-4387-8449-7b6a4c80a9ef", "MikeB", "mikeb@email.com", "7TplU3FHKll7QFqClUbYhuChCYA5mnoj7BsPvXn36w0M1gcd0bZ5tpcWdAPpO3wJvMoOzzHuVw6NC7Ot8DmqTncUNR8pJuY27", "Mike Bove", "http://www.google.com");
 
 var_dump($instance);
