@@ -65,7 +65,7 @@ trait ValidateDate {
 	private static function validateDateTime($newDateTime) : \DateTime {
 		// check to see if date is valid DateTime object - if so, return object
 		if(is_object($newDateTime) === true && get_class($newDateTime) === "DateTime") {
-			return($newDateTime);
+			return ($newDateTime);
 		}
 		// try and catch block
 		try {
@@ -75,11 +75,12 @@ trait ValidateDate {
 			list($hour, $minute, $second) = explode(":", $time);
 			list($second, $microseconds) = explode(".", $second);
 			$date->setTIme($hour, $minute, $second, $microseconds);
-			return($date);
+			return ($date);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+	}
 		/**
 		 * custom filter for mySQL style times
 		 *
@@ -111,5 +112,4 @@ trait ValidateDate {
 			// if time makes it here, it's clean
 			return($newTime);
 		}
-	}
 }
