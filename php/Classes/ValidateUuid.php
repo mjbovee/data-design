@@ -5,7 +5,7 @@
  * Date: 10/18/18
  * Time: 10:35 AM
  */
-namespace Foo\Bar\DataDesign;
+namespace Michaelbovee\DataDesign;
 require_once(dirname(__DIR__, 2) . "../vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 /**

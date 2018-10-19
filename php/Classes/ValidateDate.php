@@ -5,7 +5,7 @@
  * Date: 10/18/18
  * Time: 10:27 AM
  */
-namespace Foo\Bar\DataDesign;
+namespace Michaelbovee\DataDesign;
 /**
  * Trait to validate a mySQL date
  *

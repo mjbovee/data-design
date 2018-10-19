@@ -6,7 +6,7 @@
  * Time: 1:22 PM
  */
 
-namespace Foo\Bar\DataDesign;
+namespace Michaelbovee\DataDesign;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "../vendor/autoload.php");
@@ -18,7 +18,7 @@ use Ramsey\Uuid\Uuid;
  * @version 1.0.0
  */
 
-class Profile {
+class Profile{
 	use ValidateUuid;
 	/**
 	 * id for this profile; this is the primary key

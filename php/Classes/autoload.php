@@ -13,7 +13,7 @@
 	 * prefix: prefix for all the classes - namespace ...tbd
 	 * baseDir: base directory for all the classes - this is by default the current directory
 	 */
- 	$prefix = "Foo\Bar\DataDesign";
+ 	$prefix = "Michaelbovee\DataDesign";
  	$baseDir = __DIR__;
 	// does the class use the namespace prefix? - uses strncmp = "string of n compared"
 	 $len = strlen($prefix);
