@@ -49,6 +49,7 @@ CREATE TABLE comment (
 	commentPhotoId BINARY(16) NOT NULL,
 	commentProfileId BINARY(16) NOT NULL,
 	-- attributes
+	commentContent VARCHAR(1000),
 	commentDate DATETIME(6) NOT NULL,
 	-- indices for foreign keys
 	INDEX(commentPhotoId),

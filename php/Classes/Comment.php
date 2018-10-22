@@ -69,4 +69,68 @@ class Comment {
 		}
 		$this->commentId = $newCommentId;
 	}
+	/**
+	 * accessor method for commentPhotoId
+	 *
+	 * @return Uuid value of commentPhotoId
+	 */
+	public function getCommentPhotoId() : Uuid {
+		return ($this->commentPhotoId);
+	}
+	/**
+	 * mutator method for commentPhotoId
+	 *
+	 *@param Uuid|string $newCommentPhotoId new value of commentPhotoId
+	 *@throws \RangeException if $newCommentPhotoId is not positive
+	 *@throws \TypeError if $newCommentPhotoId is not Uuid or string
+	 */
+	public function setCommentPhotoId() : void {
+		try {
+			$uuid = self::validateUuid($newCommentPhotoId);
+		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->commentPhotoId = $newCommentPhotoId;
+	}
+	/**
+	 * accessor method for comment Profile Id
+	 *
+	 * @return Uuid value of commentProfileId
+	 */
+	public function getCommentProfileId() : Uuid {
+		return ($this->commentProfileId);
+	}
+	/**
+	 * mutator method for commentPhotoId
+	 *
+	 *@param Uuid|string $newCommentProfileId new value of commentProfileId
+	 *@throws \RangeException if $newCommentProfileId is not positive
+	 *@throws \TypeError if $newCommentProfileId is not Uuid or string
+	 */
+	public function setCommentProfileId() : void {
+		try {
+			$uuid = self::validateUuid($newCommentProfileId);
+		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->commentProfileId = $newCommentProfileId;
+	}
+	/**
+	 * accessor method for comment content
+	 *
+	 * @return string value of comment content
+	 */
+	public function setCommentContent(string $newCommentContent) : void {
+		$newCommentContent = trim($newCommentContent);
+		$newCommentContent = filter_var($newCommentContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if($newCommentContent === false) {
+			throw(new \InvalidArgumentException("comment content is empty or insecure"));
+		}
+		if(strlen($newCommentContent) > 1000) {
+			throw(new \RangeException("comment content is too large"));
+		}
+		$this->commentContent = $newCommentContent;
+	}
 }
