@@ -10,6 +10,7 @@ namespace Michaelbovee\DataDesign;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
+use http\Exception\InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 /**This is an example of what is potentially stored about a like on a site like Flickr.
  *
@@ -46,6 +47,33 @@ class Comment {
 	 */
 	private $commentDate;
 	/**
+	 * constructor for this comment
+	 *
+	 * @param string|Uuid $newCommentId if this comment is null or a new comment
+	 * @param string|Uuid $newCommentPhotoId if this comment is null or a new comment
+	 * @param string|Uuid $newCommentProfileId if this comment is null or a new comment
+	 * @param string $newCommentContent for content of comment
+	 * @param \DateTime $newCommentDate for datetime of comment
+	 * @throws \InvalidArgumentException if data types aren't valid
+	 * @throws \RangeException if data values are incorrect lengths
+	 * @throws \TypeError if data values are wrong type
+	 * @throws \Exception for any others
+	 */
+	public function __construct($newCommentId, $newCommentPhotoId, $newCommentProfileId, $newCommentContent, $newCommentDate) {
+		try {
+			$this->setCommentId($newCommentId);
+			$this->setCommentPhotoId($newCommentPhotoId);
+			$this->setCommentProfileId($newCommentProfileId);
+			$this->setCommentContent($newCommentContent);
+			$this->setCommentDate($newCommentDate);
+		}
+		catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * accessor method for commentId
 	 *
 	 * @return Uuid value of commentId
@@ -60,7 +88,7 @@ class Comment {
 	 *@throws \RangeException if $newCommentId is not positive
 	 *@throws \TypeError if $newCommentId is not Uuid or string
 	 */
-	public function setCommentId() : void {
+	public function setCommentId($newCommentId) : void {
 		try {
 			$uuid = self::validateUuid($newCommentId);
 		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
@@ -84,7 +112,7 @@ class Comment {
 	 *@throws \RangeException if $newCommentPhotoId is not positive
 	 *@throws \TypeError if $newCommentPhotoId is not Uuid or string
 	 */
-	public function setCommentPhotoId() : void {
+	public function setCommentPhotoId($newCommentPhotoId) : void {
 		try {
 			$uuid = self::validateUuid($newCommentPhotoId);
 		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
@@ -108,7 +136,7 @@ class Comment {
 	 *@throws \RangeException if $newCommentProfileId is not positive
 	 *@throws \TypeError if $newCommentProfileId is not Uuid or string
 	 */
-	public function setCommentProfileId() : void {
+	public function setCommentProfileId($newCommentProfileId) : void {
 		try {
 			$uuid = self::validateUuid($newCommentProfileId);
 		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
