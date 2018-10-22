@@ -216,4 +216,20 @@ class Comment {
 		$parameters = ["commentId" => $this->commentId->getBytes(), "commentPhotoId" => $this->commentPhotoId->getBytes(), "commentProfileId" => $this->commentProfileId->getBytes(), "commentContent" => $this->commentContent, "commentDate" => $formattedDate];
 		$statement->execute($parameters);
 	}
+	/**
+	 * deletes comment from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not PDO connection object
+	 */
+	public function delete(\PDO $pdo) : void {
+		// create template for query
+		$query = "DELETE FROM comment WHERE commentId = :commentId";
+		$statement = $pdo->prepare($query);
+
+		// wire up variables to template
+		$parameters = ["commentId" => $this->commentId->getBytes()];
+		$statement->execute($parameters);
+	}
 }
