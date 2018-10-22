@@ -249,4 +249,42 @@ class Comment {
 		$parameters = ["commentId" => $this->commentId->getBytes(), "commentPhotoId" => $this->commentPhotoId->getBytes(), "commentProfileId" => $this->commentProfileId->getBytes(), "commentContent" => $this->commentContent, "commentDate" => $formattedDate];
 		$statement->execute($parameters);
 	}
+	/**
+	 * get comment by comment id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $commentId comment id used in search
+	 * @return Comment|null comment found or null if not found
+	 * @throws /\PDOException when mySQL errors occur
+	 * @throws \TypeError when variables are not correct data type
+	 */
+	public static function getCommentByCommentId(\PDO $pdo, $commentId) : ?Comment {
+		// sanitize commentId before searching
+		try {
+			$commentId = self::validateUuid($commentId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create template for query
+		$query = "SELECT commentId, commentPhotoId, commentProfileId, commentContent, commentDate FROM comment WHERE commentId = :commentId";
+		$statement = $pdo->prepare($query);
+
+		//wire up comment id to template
+		$parameters = ["commentId" => $commentId->getBytes()];
+		$statement->execute($parameters);
+
+		//grab comment from mySQL
+		try {
+			$comment = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$comment = new Comment($row["commentId"], $row["commentPhotoId"], $row["commentProfileId"],$row["commentContent"], $row["commentDate"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($comment);
+	}
 }
