@@ -232,4 +232,21 @@ class Comment {
 		$parameters = ["commentId" => $this->commentId->getBytes()];
 		$statement->execute($parameters);
 	}
+	/**
+	 * updates comment in sql
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function update(\PDO $pdo) : void {
+		// create template for query
+		$query = "UPDATE comment SET commentPhotoId = :commentPhotoId, commentProfileId = :commentProfileId, commentContent = :commentContent, commentDate = :commentDate WHERE commentId = :commentId";
+		$statement = $pdo->prepare($query);
+
+		// wire up variables
+		$formattedDate = $this->commentDate->format("Y-m-d H:i:s.u");
+		$parameters = ["commentId" => $this->commentId->getBytes(), "commentPhotoId" => $this->commentPhotoId->getBytes(), "commentProfileId" => $this->commentProfileId->getBytes(), "commentContent" => $this->commentContent, "commentDate" => $formattedDate];
+		$statement->execute($parameters);
+	}
 }
