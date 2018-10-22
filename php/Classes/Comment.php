@@ -45,4 +45,28 @@ class Comment {
 	 * @var \DateTime $commentDate
 	 */
 	private $commentDate;
+	/**
+	 * accessor method for commentId
+	 *
+	 * @return Uuid value of commentId
+	 */
+	public function getCommentId() : Uuid {
+		return ($this->commentId);
+	}
+	/**
+	 * mutator method for commentId
+	 *
+	 *@param Uuid|string $newCommentId new value of comment id
+	 *@throws \RangeException if $newCommentId is not positive
+	 *@throws \TypeError if $newCommentId is not Uuid or string
+	 */
+	public function setCommentId() : void {
+		try {
+			$uuid = self::validateUuid($newCommentId);
+		} catch(\RangeException | \InvalidArgumentException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->commentId = $newCommentId;
+	}
 }
