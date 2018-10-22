@@ -129,7 +129,7 @@ class Comment {
 		return ($this->commentProfileId);
 	}
 	/**
-	 * mutator method for commentPhotoId
+	 * mutator method for commentProfileId
 	 *
 	 *@param Uuid|string $newCommentProfileId new value of commentProfileId
 	 *@throws \RangeException if $newCommentProfileId is not positive
@@ -148,6 +148,14 @@ class Comment {
 	 * accessor method for comment content
 	 *
 	 * @return string value of comment content
+	 */
+	public function getCommentContent() : string {
+		return $this->commentContent;
+	}
+
+	/**
+	 * mutator method for comment content
+	 * @param string $newCommentContent
 	 */
 	public function setCommentContent(string $newCommentContent) : void {
 		$newCommentContent = trim($newCommentContent);
@@ -168,16 +176,18 @@ class Comment {
 	public function getCommentDate(): \DateTime {
 		return($this->commentDate);
 	}
+
 	/**
 	 * mutator method for comment date
 	 *
 	 * @param \DateTime|string|null $newCommentDate comment date as a DateTime object or string (or null to load current time)
 	 * @throws \InvalidArgumentException if $newCommentDate is not a valid object or string
 	 * @throws \RangeException if $newCommentDate is a date that does not exist
+	 * @throws \Exception
 	 */
 	public function setCommentDate($newCommentDate = null) : void {
 		if($newCommentDate === null) {
-			$this->tweetDate = new \DateTime();
+			$this->commentDate = new \DateTime();
 			return;
 		}
 
@@ -188,5 +198,22 @@ class Comment {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		$this->commentDate = $newCommentDate;
+	}
+	/**
+	 * insert this comment into mysql
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo) : void {
+		// create template for query
+		$query = "INSERT INTO comment(commentId, commentPhotoId, commentProfileId, commentContent, commentDate) values(:commentId, :commentPhotoId, :commentProfileId, :commentContent, :commentDate)";
+		$statement = $pdo->prepare($query);
+
+		// wire up variables
+		$formattedDate = $this->commentDate->format("Y-m-d H:i:s.u");
+		$parameters = ["commentId" => $this->commentId->getBytes(), "commentPhotoId" => $this->commentPhotoId->getBytes(), "commentProfileId" => $this->commentProfileId->getBytes(), "commentContent" => $this->commentContent, "commentDate" => $formattedDate];
+		$statement->execute($parameters);
 	}
 }
