@@ -344,6 +344,6 @@ class Comment {
 
 		// format date in digestable way
 		$fields["commentDate"] = round(floatval($this->commentDate->format("U.u")) * 1000);
-		$return($fields);
+		return($fields);
 	}
 }
