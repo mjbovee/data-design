@@ -330,4 +330,20 @@ class Comment {
 		}
 		return($comments);
 	}
+	/**
+	 * formats state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 */
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
+
+		$fields["commentId"] = $this->commentId->toString();
+		$fields["commentPhotoId"] = $this->commentPhotoId->toString();
+		$fields["commentProfileId"] = $this->commentProfileId->toString();
+
+		// format date in digestable way
+		$fields["commentDate"] = round(floatval($this->commentDate->format("U.u")) * 1000);
+		$return($fields);
+	}
 }
