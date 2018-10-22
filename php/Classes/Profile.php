@@ -274,4 +274,37 @@ class Profile{
 		$parameters =["profileId" => $this->profileId->getBytes(), "profileDisplayName" => $this->profileDisplayName, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileRealName" => $this->profileRealName, "profileWebAddress" => $this->profileWebAddress];
 		$statement->execute($parameters);
 	}
+	/**
+	 * deletes this profile from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a connection object
+	 */
+	public function delete(\PDO $pdo) : void {
+		// create template for query
+		$query = "DELETE FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+
+		//wire up variable to place holder in template
+		$parameters = ["profileId" => $this->profileId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this profile in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+ 	 * @throws \TypeError if $pdo is not a connection object
+	 */
+	public function update(\PDO $pdo) : void {
+		// create template for query
+		$query = "UPDATE profile SET profileId = :profileId, profileDisplayName = :profileDisplayName, profileEmail = :profileEmail, profileHash = :profileHash, profileRealName = :profileRealName, profileWebAddress = :profileWebAddress";
+		$statement = $pdo->prepare($query);
+
+		//wire up variables to place holders in query
+		$parameters =["profileId" => $this->profileId->getBytes(), "profileDisplayName" => $this->profileDisplayName, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileRealName" => $this->profileRealName, "profileWebAddress" => $this->profileWebAddress];
+		$statement->execute($parameters);
+	}
 }
