@@ -257,4 +257,21 @@ class Profile{
 		// store new web address
 		$this->profileWebAddress = $newProfileWebAddress;
 	}
+
+	/**
+	 * insert this profile into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors happen
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO, $pdo) : void {
+		// create template for query
+		$query = "INSERT INTO profile(profileId, profileDisplayName, profileEmail, profileHash, profileRealName, profileWebAddress) VALUES (:profileId, :profileDisplayName, :profileEmail, :profileHash, :profileRealName, :profileWebAddress)";
+		$statement = $pdo->prepare($query);
+
+		// wire variables up to their place holders in the template
+		$parameters =["profileId" => $this->profileId->getBytes(), "profileDisplayName" => $this->profileDisplayName, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileRealName" => $this->profileRealName, "profileWebAddress" => $this->profileWebAddress];
+		$statement->execute($parameters);
+	}
 }
