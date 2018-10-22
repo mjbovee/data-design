@@ -352,11 +352,11 @@ class Profile{
 		$statement->execute();
 
 		// build array of profiles
-		$profiles = new \SplFixedArray($statment->rowCount());
+		$profiles = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statment->fetch()) !== false) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
-				$Profile = new Profile($row["profileId"], $row["profileDisplayName"], $row["profileEmail"], $row["profileHash"], $row["profileRealName"], $row["profileWebAddress"]);
+				$profile = new Profile($row["profileId"], $row["profileDisplayName"], $row["profileEmail"], $row["profileHash"], $row["profileRealName"], $row["profileWebAddress"]);
 				$profiles[$profiles->key()] = $profile;
 				$profiles->next();
 			} catch(\Exception $exception) {
@@ -364,5 +364,17 @@ class Profile{
 			}
 		}
 		return($profiles);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 */
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
+
+		$fields["profileId"] = $this->profileId->toString();
+		return($fields);
 	}
 }
