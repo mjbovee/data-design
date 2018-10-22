@@ -265,7 +265,7 @@ class Profile{
 	 * @throws \PDOException when mySQL related errors happen
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 */
-	public function insert(\PDO, $pdo) : void {
+	public function insert(\PDO $pdo) : void {
 		// create template for query
 		$query = "INSERT INTO profile(profileId, profileDisplayName, profileEmail, profileHash, profileRealName, profileWebAddress) VALUES (:profileId, :profileDisplayName, :profileEmail, :profileHash, :profileRealName, :profileWebAddress)";
 		$statement = $pdo->prepare($query);
