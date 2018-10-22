@@ -255,7 +255,7 @@ class Comment {
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid|string $commentId comment id used in search
 	 * @return Comment|null comment found or null if not found
-	 * @throws /\PDOException when mySQL errors occur
+	 * @throws \PDOException when mySQL errors occur
 	 * @throws \TypeError when variables are not correct data type
 	 */
 	public static function getCommentByCommentId(\PDO $pdo, $commentId) : ?Comment {

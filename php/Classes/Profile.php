@@ -307,4 +307,43 @@ class Profile{
 		$parameters =["profileId" => $this->profileId->getBytes(), "profileDisplayName" => $this->profileDisplayName, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileRealName" => $this->profileRealName, "profileWebAddress" => $this->profileWebAddress];
 		$statement->execute($parameters);
 	}
+	/**
+	 * get profile by profile id
+	 *
+	 * @param \PDO $pdo connection object
+	 * @param Uuid|string $profileId profile id used in query
+	 * @return Profile|null - profile if there's a result, null if there isn't
+	 * @throws \PDOException when mySQL errors occur
+	 * @throws \TypeError when variables are not correct data type
+	 */
+	public static function getProfileByProfileId(\PDO $pdo, $profileId) : ?Profile {
+		// sanitize string / Uuid
+		try {
+			$profileId = self::validateUuid($profileId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create template for new query
+		$query = "SELECT profileId, profileDisplayName, profileEmail, profileHash, profileRealName, profileWebAddress FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+
+		// wire up variable (profile Id) to query
+		$parameters = ["profileId" => $profileId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab profile from mySQL
+		try {
+			$profile = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$profile = new Profile($row["profileId"], $row["profileDisplayName"], $row["profileEmail"], $row["profileHash"], $row["profileRealName"], $row["profileWebAddress"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($profile);
+	}
+
 }
