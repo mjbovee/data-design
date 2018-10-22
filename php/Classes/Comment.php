@@ -10,7 +10,6 @@ namespace Michaelbovee\DataDesign;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-use http\Exception\InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 /**This is an example of what is potentially stored about a like on a site like Flickr.
  *
