@@ -345,5 +345,24 @@ class Profile{
 		}
 		return($profile);
 	}
+	public static function getAllProfiles(\PDO $pdo) : \SplFixedArray {
+		// create template for query
+		$query = "SELECT profileId, profileDisplayName, profileEmail, profileHash, profileRealName, profileWebAdress FROM profile";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
 
+		// build array of profiles
+		$profiles = new \SplFixedArray($statment->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statment->fetch()) !== false) {
+			try {
+				$Profile = new Profile($row["profileId"], $row["profileDisplayName"], $row["profileEmail"], $row["profileHash"], $row["profileRealName"], $row["profileWebAddress"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($profiles);
+	}
 }
